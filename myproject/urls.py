@@ -12,9 +12,13 @@ Class-based views
 Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
+from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from rest_framework import routers
+from mycity.views import Account, NewUser
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/profile/$', Account.as_view()),
+    url(r'^accounts/new/$', NewUser.as_view()),
 ]
