@@ -47,3 +47,4 @@ Temporary Items
 .apdisk
 #Django Files
 settings.py
+db.sqlite3

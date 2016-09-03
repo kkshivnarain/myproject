@@ -15,10 +15,18 @@ Including another URLconf
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework import routers
-from mycity.views import Account, NewUser
+from mycity.views import OTPView,IWillTrack,CityOverView, CityListView, IssueListView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/profile/$', Account.as_view()),
-    url(r'^accounts/new/$', NewUser.as_view()),
+#    url(r'^accounts/profile/$', Account.as_view()),
+#    url(r'^accounts/new/$', NewUser.as_view()),
+    url(r'^accounts/otp/$',OTPView.as_view()), #get OTP of existing phone
+    url(r'^accounts/otp/(?P<phone>[0-9]+)/$',OTPView.as_view()), #register new phone
+    url(r'^accounts/otp/(?P<phone>[0-9]+)/(?P<rcdotp>[0-9]+)?/?$',OTPView.as_view()), #validating otp  
+    url(r'^mycity/citylist/$',CityListView.as_view()),
+    url(r'^mycity/issuelist/$',IssueListView.as_view()),
+    url(r'^mycity/iwilltrack/$',IWillTrack.as_view()),
+    url(r'^mycity/overview/(?P<category>[a-z]+)/(?P<fdate>[0-9]+)/(?P<tdate>[0-9]+)/$',CityOverView.as_view()),
+
 ]
