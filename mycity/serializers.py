@@ -24,12 +24,12 @@ class OTPOTPSerializer(serializers.ModelSerializer):
 class CityTrackerSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyCity
-        fields = ('category','latitude','longitude','timestamp','city')
+        fields = ('category','latitude','longitude','timestamp')
 
 class CityListSerializer(serializers.ModelSerializer):
     class Meta:
         model = CityList
-        fields = ('city',)
+        fields = ('city','ne_latitude','ne_longitude','sw_latitude','sw_longitude')
 
 class IssueListSerializer(serializers.ModelSerializer):
     class Meta:

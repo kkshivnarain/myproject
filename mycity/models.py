@@ -1,6 +1,5 @@
 from django.db import models
-import random
-import string
+import random, string, json, urllib
 
 # Create your models here.
 
@@ -30,6 +29,15 @@ class MyCity(models.Model):
     def __unicode__(self):
         return self.city+"-"+self.category
 
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            url="http://maps.googleapis.com/maps/api/geocode/json?latlng=" +str(self.latitude)+","+str(self.longitude)
+            urlresponse=urllib.urlopen(url)
+            googlecity=json.loads(urlresponse.read())
+            self.city=googlecity["results"][0]["address_components"][2]['long_name']
+        super(MyCity, self).save(*args, **kwargs)
+
+#http://maps.googleapis.com/maps/api/geocode/json?latlng=" +latitude+","+longitude
 
 class CityList(models.Model):
     city=models.CharField(max_length=50)

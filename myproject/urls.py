@@ -15,7 +15,7 @@ Including another URLconf
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework import routers
-from mycity.views import OTPView,IWillTrack,CityOverView, CityListView, IssueListView
+from mycity.views import OTPView,IWillTrack,CityOverView, CityListView, IssueListView,Index
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^mycity/citylist/$',CityListView.as_view()),
     url(r'^mycity/issuelist/$',IssueListView.as_view()),
     url(r'^mycity/iwilltrack/$',IWillTrack.as_view()),
-    url(r'^mycity/overview/(?P<category>[a-z]+)/(?P<fdate>[0-9]+)/(?P<tdate>[0-9]+)/$',CityOverView.as_view()),
+    url(r'^mycity/overview/(?P<city>[a-z]+)/(?P<category>[a-z]+)/(?P<fdate>[0-9]+)/(?P<tdate>[0-9]+)/$',CityOverView.as_view()),
+    url(r'^index/$',Index),
 
 ]
