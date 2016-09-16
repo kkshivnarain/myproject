@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from mycity.models import OTP, MyCity, CityList, IssueList
+from mycity.models import OTP, MyCity, CityList, IssueList, UserCredit
 from rest_framework import serializers
 
 class UserSerializer(serializers.ModelSerializer):
@@ -9,11 +9,11 @@ class UserSerializer(serializers.ModelSerializer):
         write_only_fields = ('password',)
         read_only_fields = ('is_staff', 'is_superuser', 'is_active', 'date_joined',)
             
-        
+      
 class OTPSerializer(serializers.ModelSerializer):
     class Meta:
         model = OTP
-        fields = ('phone',)
+        fields = ('phone','first_name')
 
 
 class OTPOTPSerializer(serializers.ModelSerializer):
@@ -35,3 +35,8 @@ class IssueListSerializer(serializers.ModelSerializer):
     class Meta:
         model = IssueList
         fields = ('category','category_desc',)
+
+class UserCreditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserCredit
+        fields = ('userid','credit','thisweekcredit','lastweekcredit')

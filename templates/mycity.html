@@ -15,6 +15,8 @@
 		<div class="container">
 		<div class="col-sm-9">
 		<h2> My City My Responsibility</h2>
+		{% load staticfiles %}
+		<img src={% static "images/garbagemapmarker.png" %} alt="My image"/>
 		<div class="btn-group btn-group-justified">
 		<a href="#" class="btn btn-info" role="button">Home</a>
 		<a href="#" class="btn btn-info" role="button">City Council Login</a>
@@ -67,8 +69,8 @@
         };
                 // init map
         var map = new google.maps.Map(document.getElementById('map_canvas'), options);
-			
-		var myurl="http://localhost:3000/mycity/overview/";
+//		var image={% static "images/garbagemapmarker.png" %};
+		var myurl="http://localhost:8000/mycity/overview/";
 		myurl=myurl+city+"/"+category+"/"+fromdate+"/"+todate+"/";
 //		add city as well in url
 		alert(myurl);
@@ -87,6 +89,7 @@
                         position: new google.maps.LatLng(data[index].latitude,data[index].longitude),
                         map: map,
                         title: category
+//						icon:image
                     });
 
                     // process multiple info windows
