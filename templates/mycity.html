@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false" type="text/javascript"></script>
+        <title>City Over View</title>
+    </head>
+		<body>
+		<div class="container">
+		<div class="col-sm-9">
+		<h2> My City My Responsibility</h2>
+		{% load staticfiles %}
+		<img src={% static "images/mycity.png" %} alt="My City"/>
+		<div class="btn-group btn-group-justified">
+		<a href="#" class="btn btn-info" role="button">Home</a>
+		<a href="#" class="btn btn-info" role="button">City Council Login</a>
+		<a href="#" class="btn btn-info" role="button">Mobile App</a>
+		<a href="#" class="btn btn-info" role="button">Registration</a>
+		<a href="#" class="btn btn-info" role="button">About Us</a>
+		<a href="#" class="btn btn-info" role="button">Contact Us</a>
+		</div>
+		<p> Citizen Initiative by somename.com to enable participating citizens to monitor common civic issues. We expect municipalities to track the problems through our website for a given timerange.
+		Please download free android app mycity from google store.</p> 
+		<div ng-app="myTaskApp" ng-controller="formCtrl">
+		<div class="form-inline">
+		<div class="form-group">		
+		<select class="form-control" ng-model="overview.city">
+		{% for city in citylist %}
+		<option value="{{city.city}}">{{city.city|title}}</option>
+		{% endfor %}
+		</select>
+		<select class="form-control" ng-model="overview.category">
+		{% for issue in issuelist %}
+		<option value="{{issue.category}}">{{issue.category_desc}}</option>
+		{% endfor %}
+		</select>
+		<input type="date" ng-model="overview.fromdate" class="form-control"><input type="date" ng-model="overview.todate" class="form-control">
+		<button type="submit" class="btn btn-primary" ng-click="search()">Search</button> 
+		<button type="submit" class="btn btn-primary" ng-click="reset()">Reset</button>
+		</div>
+		</div>
+		</div>
+		</div>
+		        <div id="map_canvas" style="width: 800px; height:500px;"></div>
+		<div>
+		</body>
+        <script type="text/javascript">
+		var app = angular.module('myTaskApp', []);
+		app.controller('formCtrl',  function($scope) {
+		$scope.search = function() {
+		var city=$scope.overview.city;
+		var category=$scope.overview.category;
+		var fromdate=$scope.overview.fromdate/1000;
+		var todate=($scope.overview.todate)/1000;
+//		if(fromdate==todate){
+//		todate=todate+87400;
+//		}
+        var options = {
+            zoom: 10,
+            center: new google.maps.LatLng(30.69, 76.79), // centered US
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: false
+        };
+                // init map
+        var map = new google.maps.Map(document.getElementById('map_canvas'), options);
+		var myimage="http://kalpanaverma.webfactional.com/static/images/"+category+".png";
+		var image=myimage;
+//		"http://kalpanaverma.webfactional.com/static/images/garbagemapmarker.png";
+		var myurl="http://kalpanaverma.webfactional.com/mycity/overview/";
+		myurl=myurl+city+"/"+category+"/"+fromdate+"/"+todate+"/";
+//		add city as well in url
+		alert(myurl);
+		$.ajax({
+			url: myurl,
+			type:"GET",
+//			data: {"phone": "12345678", "pk":"12345678"},
+			dataType: 'json',
+			success: function(data){
+//			alert(data);
+			$.each(data, function(index) {
+//				alert(data[index].latitude);
+//				alert(data[index].longitude);
+//start marking map
+                   var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(data[index].latitude,data[index].longitude),
+                        map: map,
+                        title: category,
+						icon:image
+                    });
+
+                    // process multiple info windows
+//                    (function(marker) {
+                        // add click event
+//                        google.maps.event.addListener(marker, 'click', function() {
+//                            infowindow = new google.maps.InfoWindow({
+//                                content: category
+//                            });
+//                            infowindow.open(map, marker);
+//                        });
+//                    })(marker);
+//end marking map				
+				});
+			},
+			error: function(data){
+			console.log(data);
+//			alert("Nothing exist in this time range for this issue");
+			}
+		});
+		}
+		});
+        </script>		
+</html>
