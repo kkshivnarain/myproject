@@ -28,11 +28,14 @@ urlpatterns = [
     url(r'^mycity/issuelist/$',IssueListView.as_view()),
     url(r'^mycity/iwilltrack/(?P<phone>[0-9]+)/$',IWillTrack.as_view()),
     url(r'^mycity/overview/(?P<city>[a-z]+)/(?P<category>[a-z]+)/(?P<fdate>[0-9]+)/(?P<tdate>[0-9]+)/$',CityOverView.as_view()),
+    url(r'^index/$',Index),
+    #testing 20160904
     url(r'^rest-auth/',include('rest_framework.urls',namespace='rest_framework')),
     url(r'^accounts/auth/$',AuthView.as_view()),
     url(r'^accounts/login/$',LoginView.as_view()),
     url(r'^mycity/score/(?P<phone>[0-9]+)/$',UserCreditView.as_view()),
     url(r'^mycity/coordinates/(?P<city>[a-z]+)/$',Coordinates.as_view()),
+
 	#for webpage
     url(r'^index/$',Index),    
 ]

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from mycity.models import OTP, MyCity, CityList, IssueList, UserCredit, UserCreditDetails
+from mycity.models import OTP, MyCity, CityList, IssueList
 
 # Register your models here.
 @admin.register(OTP)
