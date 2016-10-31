@@ -103,3 +103,4 @@ settings.py
 db.sqlite3
 .pyc
 manage.py
+migrations
