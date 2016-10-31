@@ -49,6 +49,7 @@ Temporary Items
 #Django Files
 settings.py
 db.sqlite3
+
 .pyc
 =======
 # Windows image file caches
@@ -102,4 +103,5 @@ Temporary Items
 settings.py
 db.sqlite3
 .pyc
+manage.py
 >>>>>>> 825800c745f1281f66088aed09398d0f9618175d
