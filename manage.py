@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 #!/usr/local/bin/python2.7
-=======
 #!/usr/bin/env python
->>>>>>> 01375511faeadc5485caff722ece85c561f19e85
 import os
 import sys
 
